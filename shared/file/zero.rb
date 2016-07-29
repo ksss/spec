@@ -61,9 +61,17 @@ describe :file_zero, shared: true do
   end
 
   platform_is :windows do
-    # see http://redmine.ruby-lang.org/issues/show/449 for background
-    it "returns true for a directory" do
-      @object.send(@method, @dir).should == true
+    ruby_version_is ""..."2.3" do
+      # see http://redmine.ruby-lang.org/issues/show/449 for background
+      it "returns true for a directory" do
+        @object.send(@method, @dir).should == true
+      end
+    end
+
+    ruby_version_is "2.3" do
+      it "returns false for a directory" do
+        @object.send(@method, @dir).should == false
+      end
     end
   end
 end
